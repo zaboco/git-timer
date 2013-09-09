@@ -1,6 +1,6 @@
 
-auto-test:
-	@wr --exec 'make -s test' src spec
+run: build
+	@./bin/git-timer
 
 build:
 	@lsc -bco js/src src
@@ -8,6 +8,9 @@ build:
 
 test: build
 	@jasmine-node --noStack js
+
+atest:
+	@wr --exec 'make -s test' src spec
 
 clean:
 	@rm -rf js demo/demo.js
