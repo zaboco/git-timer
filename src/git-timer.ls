@@ -1,4 +1,13 @@
-global <<< require \prelude-ls
+# global <<< require \prelude-ls
 
-module.exports =
-  dummy-method: -> true
+class GitTimer
+  ->
+    @_running = false
+
+  start: ->
+    @_running = true
+
+  is-running: ->
+    @_running
+
+module.exports = GitTimer
