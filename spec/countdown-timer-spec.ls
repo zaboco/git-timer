@@ -13,3 +13,6 @@ describe \CountdownTimer ->
   describe \initially ->
     that 'time-left is the initial timeout' ->
       expect countdown-timer.time-left! .to-equal TIMEOUT
+
+    that 'is running' ->
+      expect countdown-timer.is-running! .to-be-truthy!
