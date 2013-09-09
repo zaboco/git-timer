@@ -1,11 +1,13 @@
 Clock = require './clock'
 
 class CountdownTimer
-  (@_timeout, {@clock = new Clock} = {}) ->
+  (@_timeout, {@clock = new Clock 1} = {}) ->
     @_time-left = -1
     @clock.on-tick -> @~_tick
 
-  start: -> @_time-left = @_timeout
+  start: ->
+    @_time-left = @_timeout
+    @clock.start!
 
   time-left: -> @_time-left
 
@@ -13,6 +15,7 @@ class CountdownTimer
 
   _tick: ->
     @_time-left --
+    @clock.stop! if @_time-left is 0
 
 
 module.exports = CountdownTimer
