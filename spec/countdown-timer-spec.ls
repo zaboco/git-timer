@@ -10,12 +10,15 @@ describe \CountdownTimer ->
     TIMEOUT
 
   describe \initially ->
-    that 'is running' ->
+    that 'is not running' ->
       expect countdown-timer.is-running! .to-be-falsy!
 
   describe 'after start' ->
     before-each ->
       countdown-timer.start!
+
+    that 'is running' ->
+      expect countdown-timer.is-running! .to-be-truthy!
 
     that 'time-left is the initial timeout' ->
       expect countdown-timer.time-left! .to-equal TIMEOUT
