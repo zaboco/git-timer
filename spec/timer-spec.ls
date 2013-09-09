@@ -2,13 +2,16 @@ require! Timer: '../src/timer'
 
 that = it
 
-timer = new Timer
-
+var timer
 
 describe \Timer ->
   describe \on-tick ->
+    timer := new Timer
     before-each ->
       jasmine.Clock.useMock!
+
+    that 'it is initially stopped' ->
+      expect timer.is-running! .to-be-falsy!
 
     that 'it starts' ->
       timer.start!
@@ -20,3 +23,6 @@ describe \Timer ->
       timer.start!
       jasmine.Clock.tick timer.interval! + 1
       expect ticked .to-be-truthy!
+
+    # that 'it stops' ->
+    #   timer.start!
