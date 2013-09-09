@@ -1,5 +1,7 @@
 require! Clock: '../src/clock'
 
+DELAY = 100
+
 that = it
 
 var clock
@@ -7,7 +9,7 @@ var clock
 describe \Clock ->
   describe \on-tick ->
     before-each ->
-      clock := new Clock
+      clock := new Clock DELAY
       jasmine.Clock.useMock!
 
     that 'it is initially stopped' ->
@@ -21,7 +23,7 @@ describe \Clock ->
       ticked = false
       clock.on-tick -> ticked := true
       clock.start!
-      jasmine.Clock.tick clock.delay! + 1
+      jasmine.Clock.tick DELAY + 1
       expect ticked .to-be-truthy!
 
     that 'it stops' ->

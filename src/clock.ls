@@ -1,10 +1,9 @@
 global <<< require \prelude-ls
 
 class Clock
-  ->
+  (@_delay = 1000)->
     @_running = false
     @_actions = []
-    @_delay = 1000
 
   start: ->
     @_running = true
