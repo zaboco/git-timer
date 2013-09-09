@@ -1,6 +1,6 @@
 global <<< require \prelude-ls
 
-class GitTimer
+class Timer
   ->
     @_running = false
     @_actions = []
@@ -21,4 +21,4 @@ class GitTimer
 
   interval: -> @_interval
 
-module.exports = GitTimer
+module.exports = Timer
