@@ -1,6 +1,6 @@
 global <<< require \prelude-ls
 
-class Timer
+class Clock
   ->
     @_running = false
     @_actions = []
@@ -25,4 +25,4 @@ class Timer
 
   delay: -> @_delay
 
-module.exports = Timer
+module.exports = Clock
