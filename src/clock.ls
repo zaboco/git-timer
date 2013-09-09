@@ -4,7 +4,7 @@ class Clock
   ->
     @_running = false
     @_actions = []
-    @_delay = 100
+    @_delay = 1000
 
   start: ->
     @_running = true
