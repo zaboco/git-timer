@@ -1,9 +1,9 @@
 Clock = require './clock'
 
 class CountdownTimer
-  (@_timeout, {@clock = new Clock 1} = {}) ->
+  (@_timeout, {@clock = new Clock} = {}) ->
     @_time-left = -1
-    @clock.on-tick -> @~_tick
+    @clock.on-tick @~_tick
 
   start: ->
     @_time-left = @_timeout
