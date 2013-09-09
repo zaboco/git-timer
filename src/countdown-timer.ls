@@ -1,6 +1,7 @@
 Clock = require './clock'
+require! 'events'.EventEmitter
 
-class CountdownTimer
+class CountdownTimer extends EventEmitter
   (@_timeout, {@_clock = new Clock} = {}) ->
     @_time-left = -1
     @_clock.on-tick @~_tick
@@ -13,12 +14,9 @@ class CountdownTimer
 
   is-running: -> @time-left! > 0
 
-  on-each-second: (action) ->
-    @_each-second-action = action
-
   _tick: ->
     @_time-left --
-    @_each-second-action @_time-left if @_each-second-action?
+    @emit \each-second, @_time-left
     @_clock.stop! if @_time-left is 0
 
 

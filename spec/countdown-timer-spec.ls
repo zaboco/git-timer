@@ -28,7 +28,7 @@ describe \CountdownTimer ->
   describe 'after a second' ->
     that 'is calling the action' ->
       var seconds-left
-      countdown-timer.on-each-second (sec) -> seconds-left := sec
+      countdown-timer.on \each-second, (sec) -> seconds-left := sec
       countdown-timer.start!
       jasmine.Clock.tick 1s * 1000ms + 1ms
       expect seconds-left .to-equal TIMEOUT - 1
