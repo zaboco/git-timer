@@ -17,7 +17,10 @@ class CountdownTimer extends EventEmitter
   _tick: ->
     @_time-left --
     @emit \each-second, @_time-left
-    @_clock.stop! if @_time-left is 0
+    @_stop! if @_time-left is 0
 
+  _stop: ->
+    @emit \timeout
+    @_clock.stop!
 
 module.exports = CountdownTimer

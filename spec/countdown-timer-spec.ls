@@ -34,7 +34,9 @@ describe \CountdownTimer ->
       expect seconds-left .to-equal TIMEOUT - 1
 
   describe 'at timeout' ->
+    done = false
     before-each ->
+      countdown-timer.on \timeout, -> done := true
       countdown-timer.start!
       jasmine.Clock.tick TIMEOUT * 1000ms
 
@@ -43,3 +45,6 @@ describe \CountdownTimer ->
 
     that 'time left is 0' ->
       expect countdown-timer.time-left! .to-equal 0
+
+    that 'it emits a timeout signal' ->
+      expect done .to-be-truthy!
