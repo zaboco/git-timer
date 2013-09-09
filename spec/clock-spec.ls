@@ -21,7 +21,7 @@ describe \Clock ->
 
     that 'it ticks after interval' ->
       ticked = false
-      clock.on-tick -> ticked := true
+      clock.on \tick -> ticked := true
       clock.start!
       jasmine.Clock.tick DELAY + 1
       expect ticked .to-be-truthy!

@@ -1,13 +1,14 @@
 global <<< require \prelude-ls
+require! 'events'.EventEmitter
 
-class Clock
+class Clock extends EventEmitter
   (@_delay = 1000)->
     @_running = false
     @_actions = []
 
   start: ->
     @_running = true
-    @_interval = set-interval @~do-actions, @delay!
+    @_interval = set-interval @~_tick, @_delay
 
   stop: ->
     @_running = false
@@ -16,12 +17,8 @@ class Clock
   is-running: ->
     @_running
 
-  on-tick: (action) ->
-    @_actions.push action
+  _tick: ->
+    @emit \tick
 
-  do-actions: ->
-    @_actions |> each (.call!)
-
-  delay: -> @_delay
 
 module.exports = Clock

@@ -4,7 +4,7 @@ require! 'events'.EventEmitter
 class CountdownTimer extends EventEmitter
   (@_timeout, {@_clock = new Clock} = {}) ->
     @_time-left = -1
-    @_clock.on-tick @~_tick
+    @_clock.on \tick @~_tick
 
   start: ->
     @_time-left = @_timeout
