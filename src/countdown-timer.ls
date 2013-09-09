@@ -13,8 +13,12 @@ class CountdownTimer
 
   is-running: -> @time-left! > 0
 
+  on-each-second: (action) ->
+    @_each-second-action = action
+
   _tick: ->
     @_time-left --
+    @_each-second-action @_time-left if @_each-second-action?
     @_clock.stop! if @_time-left is 0
 
 

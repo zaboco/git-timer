@@ -25,10 +25,18 @@ describe \CountdownTimer ->
     that 'time-left is the initial timeout' ->
       expect countdown-timer.time-left! .to-equal TIMEOUT
 
+  describe 'after a second' ->
+    that 'is calling the action' ->
+      var seconds-left
+      countdown-timer.on-each-second (sec) -> seconds-left := sec
+      countdown-timer.start!
+      jasmine.Clock.tick 1s * 1000ms + 1ms
+      expect seconds-left .to-equal TIMEOUT - 1
+
   describe 'at timeout' ->
     before-each ->
       countdown-timer.start!
-      jasmine.Clock.tick TIMEOUT * 1000
+      jasmine.Clock.tick TIMEOUT * 1000ms
 
     that 'it is not running' ->
       expect countdown-timer.is-running! .to-be-falsy!
