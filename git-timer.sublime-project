@@ -1,0 +1,10 @@
+{
+	"folders":
+	[
+		{
+			"path": "/C/code/node/git-timer",
+      "folder_exclude_patterns": ["node_modules", "js"],
+      "file_exclude_patterns": ["*.sublime-workspace"]
+		}
+	]
+}

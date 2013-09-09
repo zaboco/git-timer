@@ -1,0 +1,23 @@
+{
+  "name": "dummy",
+  "version": "0.0.1",
+  "description": "dummy module",
+  "dependencies": {
+    "prelude-ls": "~1.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:zaboco/livescript-stub.git"
+  },
+  "keywords": [
+    "util",
+    "library"
+  ],
+  "author": "Bogdan Zaharia",
+  "license": "MIT",
+  "readmeFilename": "README.md"
+}
