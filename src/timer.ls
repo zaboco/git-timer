@@ -4,11 +4,15 @@ class Timer
   ->
     @_running = false
     @_actions = []
-    @_interval = 1000
+    @_delay = 100
 
   start: ->
     @_running = true
-    set-interval @~do-actions, @interval!
+    @_interval = set-interval @~do-actions, @delay!
+
+  stop: ->
+    @_running = false
+    clear-interval @_interval
 
   is-running: ->
     @_running
@@ -19,6 +23,6 @@ class Timer
   do-actions: ->
     @_actions |> each (.call!)
 
-  interval: -> @_interval
+  delay: -> @_delay
 
 module.exports = Timer

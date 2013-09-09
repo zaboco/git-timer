@@ -6,8 +6,8 @@ var timer
 
 describe \Timer ->
   describe \on-tick ->
-    timer := new Timer
     before-each ->
+      timer := new Timer
       jasmine.Clock.useMock!
 
     that 'it is initially stopped' ->
@@ -21,8 +21,10 @@ describe \Timer ->
       ticked = false
       timer.on-tick -> ticked := true
       timer.start!
-      jasmine.Clock.tick timer.interval! + 1
+      jasmine.Clock.tick timer.delay! + 1
       expect ticked .to-be-truthy!
 
-    # that 'it stops' ->
-    #   timer.start!
+    that 'it stops' ->
+      timer.start!
+      timer.stop!
+      expect timer.is-running! .to-be-falsy!
