@@ -8,6 +8,7 @@ class CountdownTimer extends EventEmitter
 
   start: ->
     @_time-left = @_timeout
+    @emit \each-second, @_time-left
     @_clock.start!
 
   time-left: -> @_time-left
