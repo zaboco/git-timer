@@ -3,7 +3,7 @@ CountdownTimer = require '../src/countdown-timer'
 TIMEOUT = 1min * 60sec
 
 that = it
-var countdown-timer, mock-clock
+var countdown-timer
 
 describe \CountdownTimer ->
   before-each ->
@@ -24,6 +24,13 @@ describe \CountdownTimer ->
 
     that 'time-left is the initial timeout' ->
       expect countdown-timer.time-left! .to-equal TIMEOUT
+
+  describe 'when stopped' ->
+    that 'event is emitted' ->
+      spy-on countdown-timer, \emit
+      countdown-timer.start!
+      countdown-timer.stop!
+      expect countdown-timer.emit .to-have-been-called-with \stopped, at: TIMEOUT
 
   describe 'after a second' ->
     that 'is calling the action' ->
