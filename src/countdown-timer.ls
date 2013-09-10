@@ -27,9 +27,9 @@ class CountdownTimer extends EventEmitter
   _tick: ->
     @_time-left --
     @emit \each-second, @_time-left
-    @_stop! if @_time-left is 0
+    @_on-timeout! if @_time-left is 0
 
-  _stop: ->
+  _on-timeout: ->
     @emit \timeout
     @_clock.stop!
 
