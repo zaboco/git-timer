@@ -2,12 +2,14 @@ require! {
   CountdownTimer: './countdown-timer'
   time-formatter: './time-formatter'.instance!
   clc: 'cli-color'
+  eog: 'eye-of-git'
   'child_process'.spawn
 }
 
-TIMEOUT = 2sec
+TIMEOUT = 5sec
 
 timer = new CountdownTimer TIMEOUT
+git-watcher = eog '.', <[ master ]>
 
 reset-git = ->
   reset = spawn 'git', ['reset' '--hard']
@@ -26,5 +28,9 @@ timer.on \each-second (seconds-left)->
 timer.on \timeout ->
   reset-git!
   timer.start in: 2
+
+git-watcher.on \commit ->
+  log ' Great, you commited! You can move on...'
+  timer.restart in: 2
 
 timer.start!

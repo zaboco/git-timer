@@ -4,7 +4,8 @@
   "description": "dummy module",
   "dependencies": {
     "prelude-ls": "~1.0.0",
-    "cli-color": "*"
+    "cli-color": "*",
+    "eye-of-git": "*"
   },
   "devDependencies": {},
   "scripts": {
