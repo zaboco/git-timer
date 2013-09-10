@@ -10,7 +10,8 @@ TIMEOUT = 5sec
 timer = new CountdownTimer TIMEOUT
 
 reset-git = ->
-  exec 'git reset --hard' -> log ' Your time is up, all changes are reset! Try again...'
+  reset = exec 'git reset --hard' -> log ' Your time is up, all changes are reset! Try again...'
+  reset.stdin.end!
 
 log = (output) -> process.stdout.write output
 
