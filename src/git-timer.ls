@@ -6,7 +6,7 @@ require! {
   'child_process'.spawn
 }
 
-TIMEOUT = 5sec
+TIMEOUT = 1min * 60sec
 
 timer = new CountdownTimer TIMEOUT
 git-watcher = eog '.', <[ master ]>
