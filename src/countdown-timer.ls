@@ -16,6 +16,10 @@ class CountdownTimer extends EventEmitter
     @emit \stopped, at: @_time-left
     @_clock.stop!
 
+  restart: ({in: delay} = {})->
+    @stop!
+    @start in: delay
+
   time-left: -> @_time-left
 
   is-running: -> @time-left! > 0
