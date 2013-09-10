@@ -2,16 +2,17 @@ require! {
   CountdownTimer: './countdown-timer'
   time-formatter: './time-formatter'.instance!
   clc: 'cli-color'
-  'child_process'.exec
+  'child_process'.spawn
 }
 
-TIMEOUT = 5sec
+TIMEOUT = 2sec
 
 timer = new CountdownTimer TIMEOUT
 
 reset-git = ->
-  reset = exec 'git reset --hard' -> log ' Your time is up, all changes are reset! Try again...'
+  reset = spawn 'git', ['reset' '--hard']
   reset.stdin.end!
+  log ' Your time is up, all changes are reset! Try again...'
 
 log = (output) -> process.stdout.write output
 
