@@ -6,7 +6,8 @@ class CountdownTimer extends EventEmitter
     @_time-left = -1
     @_clock.on \tick @~_tick
 
-  start: ->
+  start: ({in: delay} = {})->
+    return set-timeout @~start, delay * 1000ms if delay?
     @_time-left = @_timeout
     @emit \each-second, @_time-left
     @_clock.start!
