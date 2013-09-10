@@ -1,0 +1,10 @@
+#!/bin/bash
+
+npm test
+if [ $? -eq 0 ]; then
+  echo 'Tests are passing. Committing... '
+  exit 0
+else
+  echo 'Some tests are failing. Cannot commit!'
+  exit -1
+fi
