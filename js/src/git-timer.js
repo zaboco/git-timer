@@ -1,4 +1,4 @@
-var CountdownTimer, timeFormatter, clc, eog, spawn, commander, fs, DEFAULT_MINUTES, timer, ref$, gitWatcher, colorFilter, resetGit, log, clearOutput, hookExists, cp;
+var CountdownTimer, timeFormatter, clc, eog, spawn, commander, fs, DEFAULT_MINUTES, timer, ref$, gitWatcher, colorFilter, resetGit, log, clearOutput, hookExists, hooksDir, cp;
 CountdownTimer = require('./countdown-timer');
 timeFormatter = require('./time-formatter').instance();
 clc = require('cli-color');
@@ -26,9 +26,10 @@ if (commander.green) {
   if (hookExists) {
     log(clc.cyan('(i) pre-commit hook already exists, doing nothing\n'));
   } else {
-    log(clc.yellow('(!) no pre-commit, adding one...\n'));
-    cp = spawn('cp', ['./.hooks/pre-commit', './.git/hooks/pre-commit']);
+    hooksDir = __dirname + "/../../.hooks";
+    cp = spawn('cp', [hooksDir + "/pre-commit", './.git/hooks/pre-commit']);
     cp.stdin.end();
+    log(clc.yellow('(!) no pre-commit hook, added one.\n'));
   }
 }
 timer.on('started', function(){
@@ -52,7 +53,7 @@ gitWatcher.on('commit', function(){
   if (!timer.isRunning()) {
     return;
   }
-  log(clc.bol(0, true) + "" + clc.bgGreen(' Great, you commited! You can move on...'));
+  log(clc.bol(0, true) + "" + clc.bgGreen(' Great, you\'ve commited! You can move on...'));
   return timer.restart({
     'in': 2
   });

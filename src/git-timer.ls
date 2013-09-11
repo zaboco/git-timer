@@ -38,9 +38,10 @@ if commander.green
   if hook-exists
     log clc.cyan '(i) pre-commit hook already exists, doing nothing\n'
   else
-    log clc.yellow '(!) no pre-commit, adding one...\n'
-    cp = spawn 'cp', ['./.hooks/pre-commit' './.git/hooks/pre-commit']
+    hooks-dir = "#{__dirname}/../../.hooks" # it's '../../' because the compiled source will be in js/src folder
+    cp = spawn 'cp', ["#{hooks-dir}/pre-commit" './.git/hooks/pre-commit']
     cp.stdin.end!
+    log clc.yellow '(!) no pre-commit hook, added one.\n'
 
 timer.on \started ->
   color-filter := clc.green-bright
@@ -57,7 +58,7 @@ timer.on \timeout ->
 
 git-watcher.on \commit ->
   return if not timer.is-running!
-  log "#{clc.bol 0 true}#{clc.bg-green ' Great, you commited! You can move on...'}"
+  log "#{clc.bol 0 true}#{clc.bg-green ' Great, you\'ve commited! You can move on...'}"
   timer.restart in: 2
 
 timer.start!
