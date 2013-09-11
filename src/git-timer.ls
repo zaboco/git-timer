@@ -1,16 +1,23 @@
 require! {
   CountdownTimer: './countdown-timer'
   time-formatter: './time-formatter'.instance!
-  clc: 'cli-color'
-  eog: 'eye-of-git'
-  'child_process'.spawn
+  clc: \cli-color
+  eog: \eye-of-git
+  \child_process .spawn
+  \commander
 }
 
-TIMEOUT = 1min * 60sec
+DEFAULT_MINUTES = 5min
 
-timer = new CountdownTimer TIMEOUT
+commander
+  .version '0.0.1'
+  .option '-m, --minutes [min]', 'Specify timeout in minutes (default is 5)'
+  .parse process.argv
+
+timer = new CountdownTimer (commander.minutes ? DEFAULT_MINUTES) * 60sec
 git-watcher = eog '.', <[ master ]>
 var color-filter
+
 
 reset-git = ->
   reset = spawn 'git', ['reset' '--hard']

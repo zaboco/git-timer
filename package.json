@@ -5,7 +5,8 @@
   "dependencies": {
     "prelude-ls": "~1.0.0",
     "cli-color": "*",
-    "eye-of-git": "*"
+    "eye-of-git": "*",
+    "commander": "*"
   },
   "devDependencies": {},
   "scripts": {
