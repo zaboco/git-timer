@@ -5,6 +5,7 @@ class CountdownTimer extends EventEmitter
   (@_timeout, {@_clock = new Clock} = {}) ->
     @_time-left = -1
     @_clock.on \tick @~_tick
+    @_timeout = Math.floor @_timeout
 
   start: ({in: delay} = {})->
     if delay?

@@ -13,6 +13,7 @@ CountdownTimer = (function(superclass){
       : new Clock;
     this._timeLeft = -1;
     this._clock.on('tick', bind$(this, '_tick'));
+    this._timeout = Math.floor(this._timeout);
   }
   prototype.start = function(arg$){
     var delay;
