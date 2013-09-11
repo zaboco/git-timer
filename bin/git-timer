@@ -1,2 +1,6 @@
-#!node
-require('../js/src/git-timer.js')
+#!/usr/bin/env node
+
+if( !process.env.NODE_ENV ) process.env.NODE_ENV = 'test';
+
+var path = require('path');
+require(path.join(__dirname,'../js/src/git-timer.js'));
