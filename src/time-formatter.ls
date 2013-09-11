@@ -1,3 +1,4 @@
+global <<< require \prelude-ls
 
 class TimeFormatter
   mm-ss: (seconds) ->
