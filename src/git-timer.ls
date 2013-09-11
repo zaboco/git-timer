@@ -10,27 +10,33 @@ TIMEOUT = 1min * 60sec
 
 timer = new CountdownTimer TIMEOUT
 git-watcher = eog '.', <[ master ]>
+var color-filter
 
 reset-git = ->
   reset = spawn 'git', ['reset' '--hard']
   reset.stdin.end!
-  log ' Your time is up, all changes are reset! Try again...'
 
 log = (output) -> process.stdout.write output
 
 clear-output = ->
-  log "#{clc.down 1}#{clc.bol -1 true}"
+  log "\n#{clc.bol -1 true}"
+
+timer.on \started ->
+  color-filter := clc.green-bright
 
 timer.on \each-second (seconds-left)->
   clear-output!
-  log time-formatter.mm-ss seconds-left
+  color-filter := clc.red-bright if seconds-left < 15
+  log color-filter time-formatter.mm-ss seconds-left
 
 timer.on \timeout ->
   reset-git!
+  log "#{clc.bol 0 true}#{clc.bg-red ' Your time is up, all changes are reset! Try again...'}"
   timer.start in: 2
 
 git-watcher.on \commit ->
-  log ' Great, you commited! You can move on...'
+  return if not timer.is-running!
+  log "#{clc.bol 0 true}#{clc.bg-green ' Great, you commited! You can move on...'}"
   timer.restart in: 2
 
 timer.start!
