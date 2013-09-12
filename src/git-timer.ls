@@ -1,6 +1,7 @@
 require! {
   CountdownTimer: './countdown-timer'
   time-formatter: './time-formatter'.instance!
+  pjson: '../../package.json'
   clc: \cli-color
   eog: \eye-of-git
   \child_process .spawn
@@ -27,7 +28,7 @@ catch
   process.exit -1
 
 commander
-  .version '0.0.1'
+  .version pjson.version
   .option '-m, --minutes [min]', 'Specify timeout in minutes (default is 5)'
   .option '-g, --green', '''
     Allow only commits on green.

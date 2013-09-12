@@ -1,6 +1,7 @@
-var CountdownTimer, timeFormatter, clc, eog, spawn, commander, fs, DEFAULT_MINUTES, resetGit, log, clearOutput, gitWatcher, e, timer, ref$, hookExists, hooksDir, cp, colorFilter;
+var CountdownTimer, timeFormatter, pjson, clc, eog, spawn, commander, fs, DEFAULT_MINUTES, resetGit, log, clearOutput, gitWatcher, e, timer, ref$, hookExists, hooksDir, cp, colorFilter;
 CountdownTimer = require('./countdown-timer');
 timeFormatter = require('./time-formatter').instance();
+pjson = require('../../package.json');
 clc = require('cli-color');
 eog = require('eye-of-git');
 spawn = require('child_process').spawn;
@@ -25,7 +26,7 @@ try {
   log(clc.redBright('Not a git repository. Quiting...\n'));
   process.exit(-1);
 }
-commander.version('0.0.1').option('-m, --minutes [min]', 'Specify timeout in minutes (default is 5)').option('-g, --green', 'Allow only commits on green.\n  \t\t\t (!) node only - requires `npm test` to be defined.\n  \t\t\t (!) WARNING: adds a pre-commit hook to git').parse(process.argv);
+commander.version(pjson.version).option('-m, --minutes [min]', 'Specify timeout in minutes (default is 5)').option('-g, --green', 'Allow only commits on green.\n  \t\t\t (!) node only - requires `npm test` to be defined.\n  \t\t\t (!) WARNING: adds a pre-commit hook to git').parse(process.argv);
 timer = new CountdownTimer(((ref$ = commander.minutes) != null ? ref$ : DEFAULT_MINUTES) * 60);
 if (commander.green) {
   hookExists = fs.existsSync('.git/hooks/pre-commit');
