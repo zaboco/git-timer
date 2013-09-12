@@ -13,7 +13,7 @@ CountdownTimer = (function(superclass){
       : new Clock;
     this._timeLeft = -1;
     this._clock.on('tick', bind$(this, '_tick'));
-    this._timeout = Math.floor(this._timeout);
+    this._validateTimeout();
   }
   prototype.start = function(arg$){
     var delay;
@@ -63,6 +63,12 @@ CountdownTimer = (function(superclass){
   prototype._onTimeout = function(){
     this.emit('timeout');
     return this._clock.stop();
+  };
+  prototype._validateTimeout = function(){
+    this._timeout = Math.floor(this._timeout);
+    if (this._timeout <= 0) {
+      return this._timeout = 1;
+    }
   };
   return CountdownTimer;
 }(EventEmitter));

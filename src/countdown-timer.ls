@@ -5,7 +5,7 @@ class CountdownTimer extends EventEmitter
   (@_timeout, {@_clock = new Clock} = {}) ->
     @_time-left = -1
     @_clock.on \tick @~_tick
-    @_timeout = Math.floor @_timeout
+    @_validate-timeout!
 
   start: ({in: delay} = {})->
     if delay?
@@ -36,5 +36,10 @@ class CountdownTimer extends EventEmitter
   _on-timeout: ->
     @emit \timeout
     @_clock.stop!
+
+  _validate-timeout: ->
+    @_timeout = Math.floor @_timeout
+    @_timeout = 1 if @_timeout <= 0
+
 
 module.exports = CountdownTimer
