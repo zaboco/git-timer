@@ -4,12 +4,17 @@ TimeFormatter = (function(){
   TimeFormatter.displayName = 'TimeFormatter';
   var _ensureMinTwoDigits, prototype = TimeFormatter.prototype, constructor = TimeFormatter;
   prototype.mmSs = function(seconds){
-    var minutes, remainingSeconds, ref$;
+    var minutes;
     minutes = Math.floor(seconds / 60);
-    remainingSeconds = seconds % 60;
-    ref$ = map(_ensureMinTwoDigits)(
-    [minutes, remainingSeconds]), minutes = ref$[0], remainingSeconds = ref$[1];
-    return minutes + ":" + remainingSeconds;
+    seconds = seconds % 60;
+    return function(it){
+      return it.minutes + ":" + it.seconds;
+    }(
+    Obj.map(_ensureMinTwoDigits)(
+    {
+      minutes: minutes,
+      seconds: seconds
+    }));
   };
   _ensureMinTwoDigits = function(number){
     if (number < 10) {
