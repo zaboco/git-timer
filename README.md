@@ -32,7 +32,7 @@ Options:
 ```
 
 * `--minutes` allows you to override the default timeout (5 minutes)
-* `--green` enforces commits only on green, assuming `npm test` is available. It basically creates a pre-commit script so that commits are allowed only if `npm test` passes.
+* `--green` enforces commits only on green, assuming `npm test` is available. It basically creates a pre-commit script so that commits are allowed only if `npm test` passes.  
     <i>__Notes__
     - It only works if you don't already use a pre-commit hook.
     - It can be reverted by `rm .git/hooks/pre-commit`
