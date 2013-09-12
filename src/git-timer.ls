@@ -10,6 +10,22 @@ require! {
 
 DEFAULT_MINUTES = 5min
 
+reset-git = ->
+  reset = spawn 'git', ['reset' '--hard']
+  reset.stdin.end!
+
+log = (output) -> process.stdout.write output
+
+clear-output = ->
+  log "\n#{clc.bol -1 true}"
+
+var git-watcher
+try
+  git-watcher := eog '.', <[ master ]>
+catch
+  log clc.red-bright 'Not a git repository. Quiting...\n'
+  process.exit -1
+
 commander
   .version '0.0.1'
   .option '-m, --minutes [min]', 'Specify timeout in minutes (default is 5)'
@@ -21,17 +37,6 @@ commander
   .parse process.argv
 
 timer = new CountdownTimer (commander.minutes ? DEFAULT_MINUTES) * 60sec
-git-watcher = eog '.', <[ master ]>
-var color-filter
-
-reset-git = ->
-  reset = spawn 'git', ['reset' '--hard']
-  reset.stdin.end!
-
-log = (output) -> process.stdout.write output
-
-clear-output = ->
-  log "\n#{clc.bol -1 true}"
 
 if commander.green
   hook-exists = fs.exists-sync '.git/hooks/pre-commit'
@@ -43,6 +48,7 @@ if commander.green
     cp.stdin.end!
     log clc.yellow '(!) no pre-commit hook, added one.\n'
 
+var color-filter
 timer.on \started ->
   color-filter := clc.green-bright
 

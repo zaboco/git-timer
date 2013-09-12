@@ -1,4 +1,4 @@
-var CountdownTimer, timeFormatter, clc, eog, spawn, commander, fs, DEFAULT_MINUTES, timer, ref$, gitWatcher, colorFilter, resetGit, log, clearOutput, hookExists, hooksDir, cp;
+var CountdownTimer, timeFormatter, clc, eog, spawn, commander, fs, DEFAULT_MINUTES, resetGit, log, clearOutput, gitWatcher, e, timer, ref$, hookExists, hooksDir, cp, colorFilter;
 CountdownTimer = require('./countdown-timer');
 timeFormatter = require('./time-formatter').instance();
 clc = require('cli-color');
@@ -7,9 +7,6 @@ spawn = require('child_process').spawn;
 commander = require('commander');
 fs = require('fs');
 DEFAULT_MINUTES = 5;
-commander.version('0.0.1').option('-m, --minutes [min]', 'Specify timeout in minutes (default is 5)').option('-g, --green', 'Allow only commits on green.\n  \t\t\t (!) node only - requires `npm test` to be defined.\n  \t\t\t (!) WARNING: adds a pre-commit hook to git').parse(process.argv);
-timer = new CountdownTimer(((ref$ = commander.minutes) != null ? ref$ : DEFAULT_MINUTES) * 60);
-gitWatcher = eog('.', ['master']);
 resetGit = function(){
   var reset;
   reset = spawn('git', ['reset', '--hard']);
@@ -21,6 +18,15 @@ log = function(output){
 clearOutput = function(){
   return log("\n" + clc.bol(-1, true));
 };
+try {
+  gitWatcher = eog('.', ['master']);
+} catch (e$) {
+  e = e$;
+  log(clc.redBright('Not a git repository. Quiting...\n'));
+  process.exit(-1);
+}
+commander.version('0.0.1').option('-m, --minutes [min]', 'Specify timeout in minutes (default is 5)').option('-g, --green', 'Allow only commits on green.\n  \t\t\t (!) node only - requires `npm test` to be defined.\n  \t\t\t (!) WARNING: adds a pre-commit hook to git').parse(process.argv);
+timer = new CountdownTimer(((ref$ = commander.minutes) != null ? ref$ : DEFAULT_MINUTES) * 60);
 if (commander.green) {
   hookExists = fs.existsSync('.git/hooks/pre-commit');
   if (hookExists) {
