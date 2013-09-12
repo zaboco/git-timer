@@ -1,7 +1,7 @@
 {
-  "name": "dummy",
+  "name": "git-timer",
   "version": "0.0.1",
-  "description": "dummy module",
+  "description": "CLI application that counts down until you commit",
   "dependencies": {
     "prelude-ls": "~1.0.0",
     "cli-color": "*",
@@ -14,11 +14,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:zaboco/livescript-stub.git"
+    "url": "git@github.com:zaboco/git-timer.git"
   },
   "keywords": [
-    "util",
-    "library"
+    "cli",
+    "countdown",
+    "timer",
+    "git"
   ],
   "bin": "bin/git-timer",
   "preferGlobal": true,
