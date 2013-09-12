@@ -1,6 +1,6 @@
 {
   "name": "git-timer",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "CLI application that counts down until you commit",
   "dependencies": {
     "prelude-ls": "~1.0.0",
