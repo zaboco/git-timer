@@ -10,7 +10,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "make test"
+    "test": "make test",
+    "build": "make build"
   },
   "repository": {
     "type": "git",
