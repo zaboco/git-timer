@@ -1,0 +1,7 @@
+/spec
+/src
+/js/spec
+.gitattributes
+*.sublime*
+install.sh
+Makefile
