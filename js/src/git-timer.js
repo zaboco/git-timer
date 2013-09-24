@@ -17,7 +17,8 @@ log = function(output){
   return process.stdout.write(output);
 };
 clearOutput = function(){
-  return log("\n" + clc.bol(-1, true));
+  process.stdout.clearLine();
+  return process.stdout.cursorTo(0);
 };
 try {
   gitWatcher = eog('.', ['master']);
@@ -47,11 +48,12 @@ timer.on('each-second', function(secondsLeft){
   if (secondsLeft < 15) {
     colorFilter = clc.redBright;
   }
-  return log(colorFilter(timeFormatter.mmSs(secondsLeft)));
+  return log(">>> " + colorFilter(timeFormatter.mmSs(secondsLeft)));
 });
 timer.on('timeout', function(){
   resetGit();
-  log(clc.bol(0, true) + "" + clc.bgRed(' Your time is up, all changes are reset! Try again...'));
+  clearOutput();
+  log(clc.bgRed('--- Your time is up, all changes are reset! Try again...') + "");
   return timer.start({
     'in': 2
   });
@@ -60,7 +62,8 @@ gitWatcher.on('commit', function(){
   if (!timer.isRunning()) {
     return;
   }
-  log(clc.bol(0, true) + "" + clc.bgGreen(' Great, you\'ve commited! You can move on...'));
+  clearOutput();
+  log(clc.white.bgGreen('+++ Great, you\'ve commited! You can move on...') + "");
   return timer.restart({
     'in': 2
   });

@@ -9,6 +9,7 @@ require! {
   \fs
 }
 
+
 DEFAULT_MINUTES = 5min
 
 reset-git = ->
@@ -18,7 +19,8 @@ reset-git = ->
 log = (output) -> process.stdout.write output
 
 clear-output = ->
-  log "\n#{clc.bol -1 true}"
+  process.stdout.clear-line!
+  process.stdout.cursor-to 0
 
 var git-watcher
 try
@@ -56,16 +58,18 @@ timer.on \started ->
 timer.on \each-second (seconds-left)->
   clear-output!
   color-filter := clc.red-bright if seconds-left < 15
-  log color-filter time-formatter.mm-ss seconds-left
+  log ">>> #{color-filter time-formatter.mm-ss seconds-left}"
 
 timer.on \timeout ->
   reset-git!
-  log "#{clc.bol 0 true}#{clc.bg-red ' Your time is up, all changes are reset! Try again...'}"
+  clear-output!
+  log "#{clc.bg-red '--- Your time is up, all changes are reset! Try again...'}"
   timer.start in: 2
 
 git-watcher.on \commit ->
   return if not timer.is-running!
-  log "#{clc.bol 0 true}#{clc.bg-green ' Great, you\'ve commited! You can move on...'}"
+  clear-output!
+  log "#{clc.white.bg-green '+++ Great, you\'ve commited! You can move on...'}"
   timer.restart in: 2
 
 timer.start!
