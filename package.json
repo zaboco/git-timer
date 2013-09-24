@@ -26,6 +26,5 @@
   "bin": "bin/git-timer",
   "preferGlobal": true,
   "author": "Bogdan Zaharia",
-  "license": "MIT",
-  "readmeFilename": "README.md"
+  "license": "MIT"
 }
